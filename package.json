@@ -10,7 +10,8 @@
    "keywords": [ "chrome", "chromi", "extension", "cli", "command", "line" ],
    "dependencies": { "ws" :  "*", "optimist" :  "*" },
    "bin": {
-      "chromix-too-server": "./server/server.js"
+      "chromix-too-server": "./server.js",
+      "chromix-too-client": "./client.js"
    },
    "scripts": {
       "preinstall": "make build"

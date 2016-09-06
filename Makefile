@@ -1,20 +1,18 @@
 
-src = $(wildcard server/*.coffee client/*.coffee bin/*.coffee)
+src = server.coffee client.coffee
 js  = $(src:.coffee=.js)
 
 build: $(js)
 	@true
 
-auto:
-	coffee -cw .
+install:
+	$(MAKE) build
+	sudo npm install -g .
 
 extension:
 	$(MAKE) -C extension build
 
 %.js: %.coffee
-	coffee -c $<
-
-server/server.js: server/server.coffee
 	coffee -c --bare --no-header $<
 
-.PHONY: build auto extension
+.PHONY: build install extension
