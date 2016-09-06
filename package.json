@@ -11,7 +11,8 @@
    "dependencies": { "ws" :  "*", "optimist" :  "*" },
    "bin": {
       "chromix-too-server": "./server.js",
-      "chromix-too-client": "./client.js"
+      "chromix-too-client": "./client.js",
+      "ct-ls": "./client.js"
    },
    "scripts": {
       "preinstall": "make build"
