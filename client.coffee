@@ -140,7 +140,8 @@ switch commandName
 
   when "file"
     for arg in commandArgs
-      url = "file://#{require("path").resolve arg}"
+      url = if arg.indexOf("file://") == 0 then arg else "file://#{require("path").resolve arg}"
+
       do (url) ->
         getMatchingTabs [], (tabs) ->
           tabs = (t for t in tabs when t.url.indexOf(url) == 0)
