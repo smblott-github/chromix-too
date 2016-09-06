@@ -123,6 +123,11 @@ switch commandName
         chromix "chrome.tabs.create", {args: [{url: arg}]}, (tab) ->
           console.log "#{tab.id} #{tab.url}"
 
+  # when "mute"
+  #   commandArgs.push "audible"
+  #   getMatchingTabs commandArgs, (tabs) ->
+  #     chromix "chrome.tabs.update", {args: [tab.id, selected: false]} for tab in tabs
+
   when "file"
     for arg in commandArgs
       url = "file://#{require("path").resolve arg}"

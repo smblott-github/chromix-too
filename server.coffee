@@ -64,5 +64,6 @@ server = require("net").createServer (sock) ->
     delete clientHandlers[myClientId]
 
 require("fs").unlink args.sock, ->
-  server.listen args.sock
-  console.log "listening on: #{args.sock}"
+  server.listen args.sock, ->
+    require("fs").chmod args.sock, '0600', ->
+      console.log "listening on: #{args.sock}"
