@@ -2,7 +2,7 @@
   "name": "Chromix-Too",
   "version": "0.0.1",
   "manifest_version": 2,
-  "description": "Facilitate external access to chrome's extension API.",
+  "description": "Command-line or scripted access to chrome's extension API.",
 
   "permissions": [
     "tabs",
@@ -16,15 +16,5 @@
     "<all_urls>"
   ],
 
-  "background": {
-     "scripts": [ "background.js" ]
-  },
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["foreground.js"],
-      "run_at": "document_start",
-      "all_frames": true
-    }
-  ]
+  "background": { "scripts": [ "background.js" ] }
 }
