@@ -5,6 +5,7 @@ config =
   port: "7442"
   host: "localhost"
   sock: require("path").join process.env["HOME"], ".chromix-too.sock"
+  mode: "0600"
 
 try
   optimist = require "optimist"
@@ -12,11 +13,12 @@ catch
   console.error "optimist package not found (try something like 'npm install optimist')"
   process.exit 1
 
-args = optimist.usage("Usage: $0 [--port=PORT] [--host=ADDRESS] [--sock=PATH]")
+args = optimist.usage("Usage: $0 [--port=PORT] [--host=ADDRESS] [--sock=PATH] [--mode=MODE]")
   .alias("h", "help")
   .default("port", config.port)
   .default("host", config.host)
   .default("sock", config.sock)
+  .default("mode", config.mode)
   .argv
 
 if args.help
@@ -65,5 +67,5 @@ server = require("net").createServer (sock) ->
 
 require("fs").unlink args.sock, ->
   server.listen args.sock, ->
-    require("fs").chmod args.sock, '0600', ->
+    require("fs").chmod args.sock, args.mode, ->
       console.log "listening on: #{args.sock}"
