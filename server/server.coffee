@@ -1,3 +1,4 @@
+`#!/usr/bin/env node`
 
 config =
   port: "7442"
