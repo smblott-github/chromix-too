@@ -33,7 +33,11 @@ chromix = (path, request, callback = (->)) ->
     client.write JSON.stringify request
 
   client.on "data", (data) ->
-    callback JSON.parse(data.toString "utf8").response...
+    response = JSON.parse data.toString "utf8"
+    if response.error
+      console.error "an (unknown) error occurred"
+      process.exit 1
+    callback response.response...
     client.destroy()
 
 # If invoked as "ct-ls", then the command is "ls"; otherwise, the command is the first argument.
@@ -122,6 +126,13 @@ switch commandName
       do (arg) ->
         chromix "chrome.tabs.create", {args: [{url: arg}]}, (tab) ->
           console.log "#{tab.id} #{tab.url}"
+
+  when "ping"
+    chromix "ping", {}, (response) ->
+      if response == "ok"
+        process.exit 0
+      else
+        process.exit 1
 
   # when "mute"
   #   commandArgs.push "audible"

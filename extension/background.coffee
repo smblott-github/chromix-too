@@ -2,7 +2,7 @@
 config =
   host: "localhost" # For URI of server.
   port: "7442"      # For URI of server.
-  timeout:  1000    # Heartbeat frequency in milliseconds.
+  timeout: 1000     # Heartbeat frequency in milliseconds.
 
 extend = (hash1, hash2) ->
   for own key of hash2
@@ -17,6 +17,11 @@ requestHandler = (sock) -> ({data}) ->
   unless path
     sock.send JSON.stringify extend request, error: true
     return
+
+  if path == "ping"
+    sock.send JSON.stringify extend request, error: false, response: ["ok"]
+    return
+
 
   obj = window
   for property in path.split "."
