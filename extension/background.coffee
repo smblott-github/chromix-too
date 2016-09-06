@@ -1,12 +1,12 @@
 
+url = null
 config =
   host: "localhost" # For URI of server.
   port: "7442"      # For URI of server.
   timeout: 5000     # Heartbeat frequency in milliseconds.
 
 extend = (hash1, hash2) ->
-  for own key of hash2
-    hash1[key] = hash2[key]
+  hash1[key] = hash2[key] for own key of hash2
   hash1
 
 requestHandler = (sock) -> ({data}) ->
@@ -45,18 +45,22 @@ makeIdempotent = (func) ->
   (args...) -> ([previousFunc, func] = [func, null])[0]? args...
 
 reTryConnect = ->
+  console.log "disconnected"
   setTimeout tryConnect, config.timeout
 
 tryConnect = ->
   reTryFunction = makeIdempotent reTryConnect
   try
-    sock = new WebSocket "ws://#{config.host}:#{config.port}/"
+    url ?= "ws://#{config.host}:#{config.port}/"
+    sock = new WebSocket url
   catch
     reTryFunction()
   sock.onerror = sock.onclose = reTryFunction
   sock.onmessage = requestHandler sock
+  console.log "connected: #{url}"
 
 if window.WebSocket?
+  console.log "disconnected"
   tryConnect()
 else
   console.log "window.WebSocket is not available."

@@ -22,8 +22,7 @@ if args.help
   process.exit(0)
 
 extend = (hash1, hash2) ->
-  for own key of hash2
-    hash1[key] = hash2[key]
+  hash1[key] = hash2[key] for own key of hash2
   hash1
 
 # This sends a single request to chrome, unpacks the response, and calls callback.

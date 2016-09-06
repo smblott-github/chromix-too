@@ -42,8 +42,7 @@ wss.on "connection", (ws) ->
     clientHandlers[JSON.parse(msg).clientId]? msg
 
 extend = (hash1, hash2) ->
-  for own key of hash2
-    hash1[key] = hash2[key]
+  hash1[key] = hash2[key] for own key of hash2
   hash1
 
 clientId = 0
