@@ -2,7 +2,7 @@
 config =
   host: "localhost" # For URI of server.
   port: "7442"      # For URI of server.
-  timeout: 1000     # Heartbeat frequency in milliseconds.
+  timeout: 5000     # Heartbeat frequency in milliseconds.
 
 extend = (hash1, hash2) ->
   for own key of hash2
