@@ -18,4 +18,7 @@ extension:
 %.js: %.coffee
 	coffee -c --bare --no-header $<
 
-.PHONY: build auto install extension
+publish:
+	npm publish
+
+.PHONY: build auto install extension publish
