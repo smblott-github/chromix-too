@@ -1,5 +1,5 @@
 
-utils = require "./extension/utils.js"
+utils = require "./extension/utils"
 utils.extend exports, utils
 
 utils.extend exports.config,
