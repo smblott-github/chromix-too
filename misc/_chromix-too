@@ -10,6 +10,7 @@ then
    options+=( "rm[(filter and) remove tabs]" )
    options+=( "open[create new tabs]" )
    options+=( "file[open (and possibly reload) files]" )
+   options+=( "ping[verify that server and extension are running]" )
    _values 'commands' $options
 
 elif (( 2 < $CURRENT ))
