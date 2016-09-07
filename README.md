@@ -131,7 +131,7 @@ chromix-too rm -pinned
 chromix-too ls mail.google.com
 
 # Focus my Google Inbox tab.
-chromix-too focus "Inbox - smblott@gmail.com"
+chromix-too focus Inbox smblott@gmail.com
 ```
 
 All commands which accept filters fail (so, yield an exit status of `0`) if there are no matching tabs.
