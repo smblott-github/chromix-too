@@ -16,5 +16,10 @@
     "<all_urls>"
   ],
 
-  "background": { "scripts": [ "background.js" ] }
+  "background": { "scripts":
+     [
+        "utils.js",
+        "background.js"
+     ]
+  }
 }
