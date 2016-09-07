@@ -30,6 +30,11 @@ wss.on "connection", (ws) ->
 uniqueId = Math.floor(2000000000 * Math.random()).toString()
 clientId = 0
 
+handleWebsocketError = (request) ->
+  responseHandlers[request.clientId]? JSON.stringify extend request, error: "websocket is not connected"
+  responseHandlers = {}
+  webSock = null
+
 server = require("net").createServer (sock) ->
   clientId += 1
   myClientId = "#{uniqueId}-#{clientId}"
@@ -41,9 +46,11 @@ server = require("net").createServer (sock) ->
     catch
       console.error "failed to parse JSON: #{data}"
     try
-      webSock.send JSON.stringify extend request, clientId: myClientId
+      extend request, clientId: myClientId
+      webSock.send JSON.stringify(request), (err) ->
+        handleWebsocketError request if err
     catch
-      console.error "failed to send message; perhaps the chrome extension isn't connected"
+      handleWebsocketError request
 
   sock.on "close", ->
     delete responseHandlers[myClientId]
