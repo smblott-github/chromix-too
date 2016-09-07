@@ -1,18 +1,9 @@
 `#!/usr/bin/env node
 `
+utils = require "./utils.js"
+utils.extend global, utils
 
-config =
-  port: "7442"
-  host: "localhost"
-  sock: require("path").join process.env["HOME"], ".chromix-too.sock"
-  mode: "0600"
-
-try
-  optimist = require "optimist"
-catch
-  console.error "optimist package not found (try something like 'npm install optimist')"
-  process.exit 1
-
+optimist = require "optimist"
 args = optimist.usage("Usage: $0 [--port=PORT] [--host=ADDRESS] [--sock=PATH] [--mode=MODE]")
   .alias("h", "help")
   .default("port", config.port)
@@ -23,33 +14,26 @@ args = optimist.usage("Usage: $0 [--port=PORT] [--host=ADDRESS] [--sock=PATH] [-
 
 if args.help
   optimist.showHelp()
-  process.exit(0)
+  process.exit 0
 
-clientHandlers = {}
+responseHandlers = {}
 webSock = null
 
-try
-  WSS  = require("ws").Server
-catch
-  console.error "ws package not found (try something like 'npm install ws')"
-  process.exit 1
-
-wss  = new WSS { port: args.port, host: args.host }
+WSS  = require("ws").Server
+wss  = new WSS port: args.port, host: args.host
 wss.on "connection", (ws) ->
   console.log "#{new Date().toString()}: websocket client connected"
   webSock = ws
   ws.on "message", (msg) ->
-    clientHandlers[JSON.parse(msg).clientId]? msg
+    responseHandlers[JSON.parse(msg).clientId]? msg
 
-extend = (hash1, hash2) ->
-  hash1[key] = hash2[key] for own key of hash2
-  hash1
-
+uniqueId = Math.floor(2000000000 * Math.random()).toString()
 clientId = 0
-server = require("net").createServer (sock) ->
-  myClientId = clientId += 1
 
-  clientHandlers[myClientId] = sock.write.bind sock
+server = require("net").createServer (sock) ->
+  clientId += 1
+  myClientId = "#{uniqueId}-#{clientId}"
+  responseHandlers[myClientId] = sock.write.bind sock
 
   sock.on "data", (data) ->
     try
@@ -62,7 +46,7 @@ server = require("net").createServer (sock) ->
       console.error "failed to send message; perhaps the chrome extension isn't connected"
 
   sock.on "close", ->
-    delete clientHandlers[myClientId]
+    delete responseHandlers[myClientId]
 
 require("fs").unlink args.sock, ->
   server.listen args.sock, ->
