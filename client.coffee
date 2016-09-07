@@ -65,8 +65,9 @@ filterTabs = do ->
 getMatchingTabs = (commandArgs, callback) ->
   [ commandArgs, queryFlags ] = getQueryFlags commandArgs
   chromix "chrome.tabs.query", {}, queryFlags, (tabs) ->
+    tabs = filterTabs commandArgs, tabs
     process.exit 1 if tabs.length == 0
-    callback filterTabs commandArgs, tabs
+    callback tabs
 
 focusWindow = (windowId) ->
   chromix "chrome.windows.update", {}, windowId, {focused: true}, ->
