@@ -11,4 +11,15 @@ auto:
 %.js: %.coffee
 	coffee -c $<
 
-.PHONY: build auto
+.PHONY: build auto package
+
+pkg = chromix-too.zip
+
+package:
+	! test -f $(pkg) || rm -vf $(pkg)
+	$(MAKE) build
+	zip chromix-too.zip \
+	   manifest.json \
+	   utils.js \
+	   background.js \
+	   foreground.js
