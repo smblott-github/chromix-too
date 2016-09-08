@@ -96,6 +96,20 @@ Verify that everything is running correctly:
 chromix-too ping
 ```
 
+### Raw JSON
+
+Call any available Chrome function from the command line:
+
+```shell
+chromix-too raw chrome.storage.local.set '{"pi": 3.141}'
+
+chromix-too raw chrome.storage.local.get pi
+# {"pi":3.141}
+
+chromix-too raw chrome.storage.local.get pi | | jq '.pi'
+# 3.141
+```
+
 ## Filters
 
 For all of the commands above (except where it doesn't make sense), you can

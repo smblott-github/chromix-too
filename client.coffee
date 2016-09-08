@@ -127,6 +127,16 @@ switch commandName
                     chromix "chrome.tabs.reload", {}, tab.id, {}, ->
                       focusWindow tab.windowId
 
+  when "raw", "josn"
+    args =
+      for arg in commandArgs[1..]
+        try
+          JSON.parse arg
+        catch
+          arg
+    chromix commandArgs[0], {}, args..., (response) ->
+      console.log JSON.stringify response
+
   else
     console.error "error: unknown command: #{commandName}"
     process.exit 2
