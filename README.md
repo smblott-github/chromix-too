@@ -148,7 +148,7 @@ chromix-too ls mail.google.com
 chromix-too focus Inbox smblott@gmail.com
 ```
 
-All commands which accept filters fail (so, yield an exit status of `0`) if there are no matching tabs.
+All commands which accept filters fail (so, yield a non-zero exit status) if there are no matching tabs.
 
 ## Usage as a module
 
