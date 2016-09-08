@@ -106,7 +106,7 @@ chromix-too raw chrome.storage.local.set '{"pi": 3.141}'
 chromix-too raw chrome.storage.local.get pi
 # {"pi":3.141}
 
-chromix-too raw chrome.storage.local.get pi | | jq '.pi'
+chromix-too raw chrome.storage.local.get pi | jq '.pi'
 # 3.141
 ```
 
