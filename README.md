@@ -11,7 +11,7 @@ Chromix-too is a replacement for
 considerably simpler, uses a Unix-domain socket for communication between
 client and server (which is more secure), and is better packaged (it can be used as a module too).
 
-## Getting Started
+## Getting started
 
 There are three components: a chrome extension, a server and the `chromix-too` utility.
 
