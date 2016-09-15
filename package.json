@@ -1,6 +1,6 @@
 {
    "name": "chromix-too",
-   "version": "0.0.6",
+   "version": "0.0.8",
    "author": "Stephen Blott <smblott@gmail.com>",
    "description": "Command-line (or scripted) access to Chrome's APIs.",
    "homepage": "https://github.com/smblott-github/chromix-too",

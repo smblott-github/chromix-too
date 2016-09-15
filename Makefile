@@ -19,6 +19,7 @@ extension:
 	coffee -c --bare --no-header $<
 
 publish:
+	$(MAKE) build
 	npm publish
 
 .PHONY: build auto install extension publish
