@@ -87,6 +87,11 @@ switch commandName
         chromix "chrome.tabs.update", {}, tab.id, {selected: true}
         focusWindow tab.windowId
 
+  when "select"
+    getMatchingTabs commandArgs, (tabs) ->
+      for tab in tabs
+        chromix "chrome.tabs.update", {}, tab.id, {selected: true}
+
   when "reload"
     getMatchingTabs commandArgs, (tabs) ->
       chromix "chrome.tabs.reload", {}, tab.id, {} for tab in tabs
