@@ -64,6 +64,12 @@ Focus a tab:
 chromix-too focus https://github.com/smblott-github/chromix
 ```
 
+Select a tab (select the tab but don't `focus` Chrome window):
+
+```shell
+chromix-too select https://github.com/smblott-github/chromix
+```
+
 Remove a tab:
 
 ```shell
