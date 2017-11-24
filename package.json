@@ -1,17 +1,37 @@
 {
    "name": "chromix-too",
-   "version": "0.0.10",
+   "version": "0.0.11",
    "author": "Stephen Blott <smblott@gmail.com>",
    "description": "Command-line (or scripted) access to Chrome's APIs.",
    "homepage": "https://github.com/smblott-github/chromix-too",
-   "repository": { "type": "git", "url": "https://github.com/smblott-github/chromix-too/issues" },
-   "licenses" : [ {"type" : "MIT" } ],
-   "engines" : { "node" : ">=0.4" },
-   "keywords": [ "chrome", "chromix", "extension", "cli", "command", "line", "linux" ],
-   "dependencies": { "ws" :  "*", "optimist" :  "*" },
+   "repository": {
+      "type": "git",
+      "url": "https://github.com/smblott-github/chromix-too/issues"
+   },
+   "licenses": [
+      {
+         "type": "MIT"
+      }
+   ],
+   "engines": {
+      "node": ">=0.4"
+   },
+   "keywords": [
+      "chrome",
+      "chromix",
+      "extension",
+      "cli",
+      "command",
+      "line",
+      "linux"
+   ],
+   "dependencies": {
+      "ws": "*",
+      "optimist": "*"
+   },
    "main": "chromix-too.js",
    "bin": {
-      "chromix-too-server": "./server.js",
-      "chromix-too": "./client.js"
+      "chromix-too-server": "server.js",
+      "chromix-too": "client.js"
    }
 }
