@@ -1,25 +1,21 @@
-
-src = utils.coffee extension/utils.coffee chromix-too.coffee server.coffee client.coffee
-js  = $(src:.coffee=.js)
+src := $(wildcard *.coffee */*.coffee)
+js  := $(src:.coffee=.js)
 
 build: $(js)
-	@true
 
 auto:
-	watch -n 1 make build
+	npx watch -n 1 "make build"
 
-install:
-	$(MAKE) build
+%.js: %.coffee
+	npx coffee -c --bare --no-header $<
+
+install: build
 	sudo npm install -g .
 
 extension:
-	$(MAKE) -C extension build
+	$(MAKE) -C extension package
 
-%.js: %.coffee
-	coffee -c --bare --no-header $<
-
-publish:
-	$(MAKE) build
+publish: build
 	npm publish
 
 .PHONY: build auto install extension publish

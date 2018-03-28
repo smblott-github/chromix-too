@@ -1,25 +1,19 @@
-
-src = $(wildcard *.coffee)
-js  = $(src:.coffee=.js)
+src := $(wildcard *.coffee)
+js  := $(src:.coffee=.js)
 
 build: $(js)
-	@true
 
 auto:
-	coffee -cw .
+	npx watch -n 1 "make build"
 
 %.js: %.coffee
-	coffee -c $<
+	npx coffee -c --bare --no-header $<
+
+pkg := chromix-too.zip
+
+$(pkg): $(js) manifest.json
+	zip $(pkg) manifest.json $(js)
+
+package: $(pkg)
 
 .PHONY: build auto package
-
-pkg = chromix-too.zip
-
-package:
-	! test -f $(pkg) || rm -vf $(pkg)
-	$(MAKE) build
-	zip chromix-too.zip \
-	   manifest.json \
-	   utils.js \
-	   background.js \
-	   foreground.js

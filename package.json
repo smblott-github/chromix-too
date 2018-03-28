@@ -33,5 +33,9 @@
    "bin": {
       "chromix-too-server": "server.js",
       "chromix-too": "client.js"
+   },
+   "devDependencies": {
+      "coffeescript": "^2.2.3",
+      "watch": "^1.0.2"
    }
 }
