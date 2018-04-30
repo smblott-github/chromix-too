@@ -96,6 +96,11 @@ switch commandName
     getMatchingTabs commandArgs, (tabs) ->
       chromix "chrome.tabs.reload", {}, tab.id, {} for tab in tabs
 
+  when "url"
+    [url, commandArgs...] = commandArgs
+    getMatchingTabs commandArgs, (tabs) ->
+      chromix "chrome.tabs.update", {}, tab.id, {url} for tab in tabs
+
   when "rm", "remove", "close"
     getMatchingTabs commandArgs, (tabs) ->
       chromix "chrome.tabs.remove", {}, tab.id for tab in tabs
