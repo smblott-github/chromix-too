@@ -23,10 +23,14 @@ module.exports = (sock = config.sock) ->
       client = require("net").connect sock, ->
         client.write JSON.stringify request
 
+      dataParts = []
       client.on "data", (data) ->
-        response = JSON.parse data.toString "utf8"
-        if response.error
-          console.error "error: #{response.error}"
-          process.exit 1
-        callback response.response... for callback in callbacks
-        client.destroy()
+        dataParts.push(data);
+        if data.length != 65536
+          concatData = Buffer.concat(dataParts)
+          response = JSON.parse concatData.toString "utf8"
+          if response.error
+            console.error "error: #{response.error}"
+            process.exit 1
+          callback response.response... for callback in callbacks
+          client.destroy()
