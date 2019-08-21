@@ -16,8 +16,7 @@ if args.help
 chromix = require("./chromix-too")(args.sock).chromix
 
 [ commandName, commandArgs ] =
-  if 2 < process.argv.length then [ process.argv[2], process.argv[3...] ] else [ "ping", [] ]
-
+  if 0 < args._.length then [ args._[0], args._[1...] ] else [ "ping", [] ]
 # Extract the query flags (for chrome.tabs.query) from the arguments.  Return the new arguments and the
 # query-flags object.
 getQueryFlags = (commandArgs) ->
